@@ -1,0 +1,51 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "clean",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "clean",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "dependsOrder": "sequence",
+            "dependsOn":[
+                "clean"
+            ],
+            "args": [
+                "build",
+                "-p:StartupObject=${command:extension.commandvariable.file.relativeFileDotsNoExtension}",
+                "${workspaceFolder}/Project1/Project1.csproj",
+                 "/property:GenerateFullPaths=true",
+                 "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "run",
+            "dependsOrder": "sequence",
+            "dependsOn":[
+                "build"
+            ]
+        },
+        {
+            "label": "watch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "--project",
+                "${workspaceFolder}/Project1/Project1.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}
